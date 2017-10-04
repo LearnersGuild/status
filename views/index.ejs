@@ -2,19 +2,23 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/master.css">
     <title>STATUS</title>
   </head>
   <body>
     
-    <div class="project-wrapper" 
-    <% if(project.status === 'success') { %>
-      style="background-color: green" >
-    <% } else {} %>
-    
-      <%= project.id %>
-      <%= project.status %>
-      
+    <div class="project-wrapper">
+      <% projects.forEach(function(project) { %>
+        <div class="project" style="border: 1px solid black">
+          <% if (project.repository_name !== null) { %>
+            <%= project.id %> <br>
+            <%= project.repository_name %> <br>
+            <%= project.builds[0].status %> <br>
+            <%= project.builds[0].github_username %> <br>
+            <%= project.builds[0].commit_id %> <br>
+          <% } %>
+        </div>
+      <% }) %>
     </div>
-    <img src="https://app.codeship.com/projects/d8820100-8ab9-0135-6f8f-7621a36fc064/status?branch=master" alt="">
   </body>
 </html>

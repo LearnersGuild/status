@@ -2,25 +2,81 @@ const express = require('express');
 // const bodyParser = require('body-parser');
 
 const app = express();
-const request = require('request');
+const request = require('request-promise');
 
 const options = {
   method: 'GET',
-  url: 'https://codeship.com/api/v1/projects/249173.json',
+  url: 'https://codeship.com/api/v1/projects.json',
   qs: { api_key: '504c1e208ab901352ec212dfc1f1389b' },
-  body: '{}',
 };
 
 app.set('view engine', 'ejs');
 
+const getProjects = () => {
+  return request(options)
+    .then(json => JSON.parse(json));
+};
+
+function removeDuplicateProjects(projectsArray) {
+  let result = [];
+
+  for (var i = 0; i < projectsArray.length; i++) {
+    const alreadyInResult = deepIncludes(result, projectsArray[i])
+
+    if (!alreadyInResult) {
+      result.push(projectsArray[i])
+    }
+  }
+
+  return result
+}
+
+function deepCompare(objectA, objectB) {
+  return Object.values(objectA).join('') === Object.values(objectB).join('')
+}
+
+function deepIncludes(array, object) {
+  for(let i = 0; i < array.length; i++) {
+    if (deepCompare(array[i], object)) {
+      return true
+    }
+  }
+  return false
+}
+
+const array = [
+  {
+    id: 1,
+    name: 'howdy doody'
+  },
+  {
+    id: 1,
+    name: 'howdy doody'
+  },
+  {
+    id: 1,
+    name: 'howdy doody'
+  },
+  {
+    id: 2,
+    name: 'dowdy doody'
+  },
+  {
+    id: 2,
+    name: 'dowdy doody'
+  },
+  {
+    id: 2,
+    name: 'dowdy doody'
+  },
+];
+
 app.get('/', (req, res) => {
-  request(options, (error, response, body) => {
-    if (error) throw new Error(error);
-    const currentProject = JSON.parse(body);
-    res.render('index', { project: currentProject.builds[0], color: currentProject.builds[0].status });
+  getProjects().then((projects) => {
+    const uniqueProjects = removeDuplicateProjects(projects.projects);
+    res.render('index', { projects: uniqueProjects });
   });
 });
-
 
 const port = process.env.PORT || 3900;
 
