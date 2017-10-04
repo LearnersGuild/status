@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>STATUS</title>
+  </head>
+  <body>
+    
+    <div class="project-wrapper" 
+    <% if(project.status === 'success') { %>
+      style="background-color: green" >
+    <% } else {} %>
+    
+      <%= project.id %>
+      <%= project.status %>
+      
+    </div>
+    <img src="https://app.codeship.com/projects/d8820100-8ab9-0135-6f8f-7621a36fc064/status?branch=master" alt="">
+  </body>
+</html>
