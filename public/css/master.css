@@ -1,0 +1,61 @@
+html {
+  background-color: black;
+}
+
+.projects-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.project {
+  display: flex;
+  margin: 5px;
+  border: 1px solid black;
+  padding: 5px;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-headers,
+.repo-name,
+.build-status,
+.github-pushedby,
+.github-commit {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.project-information-labels {
+  
+}
+
+.project-information {
+  flex-direction: column;
+  text-align: right;
+}
+
+.success {
+  background-color: green;
+}
+
+.error {
+  background-color: orange;
+}
+
+.stopped {
+  background-color: grey;
+}
+
+.testing {
+  background-color: mediumaquamarine;
+}
+
+.building {
+  background-color: skyblue;
+}
+
+.failed {
+  background-color: red;
+}

@@ -6,18 +6,52 @@
     <title>STATUS</title>
   </head>
   <body>
-    
-    <div class="project-wrapper">
+    <div class="projects-wrapper">
       <% projects.forEach(function(project) { %>
-        <div class="project" style="border: 1px solid black">
+        <div class="project <%= project.builds[0].status %>" >
           <% if (project.repository_name !== null) { %>
-            <%= project.id %> <br>
-            <%= project.repository_name %> <br>
-            <%= project.builds[0].status %> <br>
-            <%= project.builds[0].github_username %> <br>
-            <%= project.builds[0].commit_id %> <br>
+            <div class="project-headers">
+              <div class="project-information-labels">
+                Project ID: 
+              </div> 
+              <div class="project-information">
+                <%= project.id %>
+              </div> 
+            </div><br>
+            <div class="repo-name">
+              <div class="project-information-labels">
+                Repository Name:
+              </div>
+              <div class="project-information">
+                <%= project.repository_name %>
+              </div>
+            </div><br>
+            <div class="build-status">
+              <div class="project-information-labels">
+                Status:
+              </div>
+              <div class="project-information">
+                <%= project.builds[0].status %>
+              </div>
+            </div><br>
+            <div class="github-pushedby">
+              <div class="project-information-labels">
+                Pushed By: 
+              </div>
+              <div class="project-information">
+                <%= project.builds[0].github_username %> 
+              </div>
+            </div><br>
+            <div class="github-commit">
+              <div class="project-information-labels">
+                GitHub Commit SSH:
+              </div>
+              <div class="project-information">
+                <%= project.builds[0].commit_id %>
+              </div>
+            </div><br>
+          </div>
           <% } %>
-        </div>
       <% }) %>
     </div>
   </body>
