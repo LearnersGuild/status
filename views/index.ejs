@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/css/master.css">
+    <link href="https://fonts.googleapis.com/css?family=Yantramanav" rel="stylesheet">
     <script>
       setInterval(() => location.reload(true), 5000);
     </script>
@@ -11,7 +12,7 @@
   <body>
     <div class="projects-wrapper">
       <% projects.forEach(function(project) { %>
-        <div class="project <%= project.builds[0].status %> stripe-7" >
+        <div class="project <%= project.builds[0].status %> stripe-7 shadow" >
           <% if (project.repository_name !== null) { %>
             <div class="project-headers">
               <div class="project-information-labels">

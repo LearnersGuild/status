@@ -1,5 +1,4 @@
 const express = require('express');
-// const bodyParser = require('body-parser');
 
 const app = express();
 const request = require('request-promise');
@@ -15,17 +14,14 @@ const options = {
   timeout: 1000,
 };
 
-const getProjects = (() => {
-  return request(options)
-    .then(json => JSON.parse(json));
-});
+const getProjects = (() => request(options).then(json => JSON.parse(json)));
 
 function deepCompare(objectA, objectB) {
-  return Object.values(objectA).join('') === Object.values(objectB).join('')
+  return Object.values(objectA).join('') === Object.values(objectB).join('');
 }
 
 function deepIncludes(array, object) {
-  for (let i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length; i += 1) {
     if (deepCompare(array[i], object)) {
       return true;
     }
@@ -36,7 +32,7 @@ function deepIncludes(array, object) {
 function removeDuplicateProjects(projectsArray) {
   const result = [];
   for (let i = 0; i < projectsArray.length; i += 1) {
-    const alreadyInResult = deepIncludes(result, projectsArray[i])
+    const alreadyInResult = deepIncludes(result, projectsArray[i]);
     if (!alreadyInResult && projectsArray[i].repository_name !== null) {
       result.push(projectsArray[i]);
     }
