@@ -3,12 +3,15 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/css/master.css">
+    <script>
+      setInterval(() => location.reload(true), 5000);
+    </script>
     <title>STATUS</title>
   </head>
   <body>
     <div class="projects-wrapper">
       <% projects.forEach(function(project) { %>
-        <div class="project <%= project.builds[0].status %>" >
+        <div class="project <%= project.builds[0].status %> stripe-7" >
           <% if (project.repository_name !== null) { %>
             <div class="project-headers">
               <div class="project-information-labels">

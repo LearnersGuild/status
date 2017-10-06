@@ -11,10 +11,26 @@ html {
 .project {
   display: flex;
   margin: 5px;
-  border: 1px solid black;
-  padding: 5px;
+  border: 1px solid silver;
+  padding: 15px;
+  text-shadow: .75px .75px .75px black;
   flex-direction: column;
   justify-content: space-between;
+  border-radius: 15px;
+  box-shadow: inset 10px 3px 38px 2px rgba(176,222,165,0.15);
+  font-family: roboto;
+  src: url(sansation_light.woff);
+}
+
+.stripe-7 {
+  color: #F0F0F0;
+  background: repeating-radial-gradient(
+    circle,
+    rgba(255,255,255,.025),
+    rgba(115,115,115,.025) 10px,
+    rgba(255,255,255,.025) 10px,
+    rgba(115,115,115,.025) 10px
+  );
 }
 
 .project-headers,
@@ -28,7 +44,7 @@ html {
 }
 
 .project-information-labels {
-  
+  font-weight: bold;1
 }
 
 .project-information {
@@ -37,11 +53,11 @@ html {
 }
 
 .success {
-  background-color: green;
+  background-color: #267F25;
 }
 
 .error {
-  background-color: orange;
+  background-color: #AD2C1F;
 }
 
 .stopped {
@@ -52,10 +68,6 @@ html {
   background-color: mediumaquamarine;
 }
 
-.building {
+.waiting {
   background-color: skyblue;
-}
-
-.failed {
-  background-color: red;
 }

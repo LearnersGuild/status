@@ -7,6 +7,7 @@ const request = require('request-promise');
 app.use(express.static('public'));
 
 app.set('view engine', 'ejs');
+
 const options = {
   method: 'GET',
   url: 'https://codeship.com/api/v1/projects.json',
@@ -42,18 +43,17 @@ function removeDuplicateProjects(projectsArray) {
   }
   return result;
 }
+
 function renderProjects(res) {
   getProjects()
     .then((projects) => {
       const uniqueProjects = removeDuplicateProjects(projects.projects);
-      res.render('index', { projects: uniqueProjects });
+      return res.render('index', { projects: uniqueProjects });
     });
 }
+
 app.get('/', (req, res) => {
   renderProjects(res);
-  setInterval(() => {
-    renderProjects(res);
-  }, 9000);
 });
 
 const port = process.env.PORT || 3900;
