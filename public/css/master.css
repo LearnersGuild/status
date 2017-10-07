@@ -1,0 +1,80 @@
+html {
+  background-color: #111111;
+}
+
+.projects-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.project {
+  display: flex;
+  font-family: 'Yantramanav', sans-serif;
+  margin: 5px;
+  border: 1px outset silver;
+  box-shadow: 0 0 5px 10px silver;
+  padding: 15px;
+  text-shadow: .75px .75px .75px black;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 15px;
+  box-shadow: inset 10px 3px 38px 2px rgba(176,222,165,0.15);
+  src: url(sansation_light.woff);
+}
+
+.shadow {
+   -moz-box-shadow:    inset 0 0 35px #000000;
+   -webkit-box-shadow: inset 0 0 35px #000000;
+   box-shadow:         inset 0 0 35px #000000;
+}
+
+.stripe-7 {
+  color: #F0F0F0;
+  background: repeating-radial-gradient(
+    circle,
+    rgba(255,255,255,.015),
+    rgba(115,115,115,.015) 10px,
+    rgba(255,255,255,.015) 10px,
+    rgba(115,115,115,.015) 10px
+  );
+}
+
+.project-headers,
+.repo-name,
+.build-status,
+.github-pushedby,
+.github-commit {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.project-information-labels {
+  font-weight: bold;
+}
+
+.project-information {
+  flex-direction: column;
+  text-align: right;
+}
+
+.success {
+  background-color: #267F25;
+}
+
+.error {
+  background-color: #AD2C1F;
+}
+
+.stopped {
+  background-color: grey;
+}
+
+.testing {
+  background-color: mediumaquamarine;
+}
+
+.waiting {
+  background-color: skyblue;
+}
