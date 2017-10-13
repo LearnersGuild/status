@@ -11,15 +11,17 @@ html {
 .project {
   display: flex;
   font-family: 'Yantramanav', sans-serif;
-  margin: 5px;
+  margin: 30px;
   border: 1px outset silver;
   box-shadow: 0 0 5px 10px silver;
+  font-size: 120%;
   padding: 15px;
   text-shadow: .75px .75px .75px black;
   flex-direction: column;
   justify-content: space-between;
   border-radius: 15px;
-  box-shadow: inset 10px 3px 38px 2px rgba(176,222,165,0.15);
+  box-shadow: inset 10px 3px 38px 2px rgba(1m run dev
+    76,222,165,0.15);
   src: url(sansation_light.woff);
 }
 
