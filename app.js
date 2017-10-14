@@ -1,50 +1,60 @@
 const express = require('express');
 
+require('dotenv').load();
+
 const app = express();
 const request = require('request-promise');
+const getAuth = require('./auth');
+const { removeDuplicateProjects } = require('./utilities');
 
 app.use(express.static('public'));
 
 app.set('view engine', 'ejs');
 
-const options = {
-  method: 'GET',
-  url: 'https://codeship.com/api/v1/projects.json',
-  qs: { api_key: '504c1e208ab901352ec212dfc1f1389b' },
-  timeout: 1000,
-};
-
-const getProjects = (() => request(options).then(json => JSON.parse(json)));
-
-function deepCompare(objectA, objectB) {
-  return Object.values(objectA).join('') === Object.values(objectB).join('');
-}
-
-function deepIncludes(array, object) {
-  for (let i = 0; i < array.length; i += 1) {
-    if (deepCompare(array[i], object)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function removeDuplicateProjects(projectsArray) {
-  const result = [];
-  for (let i = 0; i < projectsArray.length; i += 1) {
-    const alreadyInResult = deepIncludes(result, projectsArray[i]);
-    if (!alreadyInResult && projectsArray[i].repository_name !== null) {
-      result.push(projectsArray[i]);
-    }
-  }
-  return result;
-}
-
 function renderProjects(res) {
-  getProjects()
-    .then((projects) => {
-      const uniqueProjects = removeDuplicateProjects(projects.projects);
-      return res.render('index', { projects: uniqueProjects });
+
+  const authOptions = {
+    method: 'POST',
+    url: 'https://api.codeship.com/v2/auth',
+    headers:
+    {
+      authorization: 'Basic bWlrZXRoZWtsZWluQGdtYWlsLmNvbTpJbGF3aGR5NjY=',
+      'content-type': 'application/json',
+    },
+    body: '{}',
+  };
+
+  const getAuth = (() => request(authOptions).then(body => JSON.parse(body)));
+
+  getAuth()
+    .then((user) => {
+      const options = {
+        method: 'GET',
+        url: `https://api.codeship.com/v2/organizations/${user.organizations[0].uuid}/projects`,
+        headers: { authorization: `${user.access_token}` },
+        body: '{}',
+        timeout: 1000,
+      };
+
+      const getProjects = (() => request(options).then(json => JSON.parse(json)));
+
+      getProjects()
+        .then((projects) => {
+          function listBuilds(organizationId, projectId) {
+            return request({
+              uri: apiUrl + '/organizations/' + organizationId + '/projects/' + projectId + '/builds',
+              method: 'GET',
+              json: true,
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authorization.access_token,
+              },
+            });
+          }
+          const uniqueProjects = removeDuplicateProjects(projects.projects);
+          console.log( '---===uniqueProjects===---', uniqueProjects )
+          return res.render('index', { projects: uniqueProjects });
+        });
     });
 }
 
