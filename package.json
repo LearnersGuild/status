@@ -2,7 +2,7 @@
   "name": "status",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon"
@@ -24,6 +24,7 @@
     "dotenv": "^4.0.0",
     "ejs": "^2.5.7",
     "express": "^4.16.1",
+    "lodash": "^4.17.4",
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
   },

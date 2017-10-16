@@ -4,15 +4,16 @@ require('dotenv').load();
 
 const app = express();
 const request = require('request-promise');
-const getAuth = require('./auth');
+const path = require('path');
+// const getAuth = require('./server/routes/auth');
 const { removeDuplicateProjects } = require('./utilities');
 
 app.use(express.static('public'));
 
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 function renderProjects(res) {
-
   const authOptions = {
     method: 'POST',
     url: 'https://api.codeship.com/v2/auth',
@@ -23,7 +24,6 @@ function renderProjects(res) {
     },
     body: '{}',
   };
-
   const getAuth = (() => request(authOptions).then(body => JSON.parse(body)));
 
   getAuth()
