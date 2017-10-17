@@ -12,22 +12,14 @@
   <body>
     <div class="projects-wrapper">
       <% projects.forEach(function(project) { %>
-        <div class="project stripe-7 shadow" >
-          <% if (project.repository_name !== null) { %>
-            <div class="project-headers">
-              <div class="project-information-labels">
-                Project ID: 
-              </div> 
-              <div class="project-information">
-                <%= project.repository_url %>
-              </div> 
-            </div><br>
+        <div class="project <%= project.builds[0].status %> stripe-7 shadow" >
+          <% if (project.repository_url !== null && project.builds !== null) { %>
             <div class="repo-name">
               <div class="project-information-labels">
-                Repository Name:
+                Repository:
               </div>
               <div class="project-information">
-                <%= project.name %>
+                <%= project.repository_url %>
               </div>
             </div><br>
             <div class="build-status">
@@ -35,6 +27,7 @@
                 Status:
               </div>
               <div class="project-information">
+                <%= project.builds[0].status %>
               </div>
             </div><br>
             <div class="github-pushedby">
@@ -42,13 +35,15 @@
                 Pushed By: 
               </div>
               <div class="project-information">
+                <%= project.builds[0].username %>
               </div>
             </div><br>
             <div class="github-commit">
               <div class="project-information-labels">
-                GitHub Commit SSH:
+                GitHub Commit Message:
               </div>
               <div class="project-information">
+                <%= project.builds[0].commit_message %>
               </div>
             </div><br>
           </div>
