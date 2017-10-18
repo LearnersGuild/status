@@ -1,19 +1,17 @@
-require('dotenv').load();
 const request = require('request-promise');
 
-const apiUrl = process.env.CODESHIP_API_URL;
-const username = process.env.CODESHIP_USERNAME;
-const password = process.env.CODESHIP_PASSWORD;
-let authorization;
+const { codeship } = require('../config');
 
-async function postAuth() {
+let authorization;
+console.log( '---===config===---', codeship.apiUrl )
+async function authenticate() {
   if (accessTokenExpired()) {
     authorization = await request({
-      uri: apiUrl + '/auth',
+      uri: codeship.apiUrl + '/auth',
       method: 'POST',
       auth: {
-        user: username,
-        pass: password,
+        user: codeship.username,
+        pass: codeship.password,
       },
       json: true,
       headers: {'Content-Type': 'application/json'},
@@ -22,7 +20,7 @@ async function postAuth() {
   return authorization;
 }
 
-function listProjects(organizationId) {
+function getProjects(organizationId) {
   return request({
     uri: apiUrl + '/organizations/' + organizationId + '/projects',
     method: 'GET',
@@ -34,7 +32,7 @@ function listProjects(organizationId) {
   });
 }
 
-function listBuilds(organizationId, projectId) {
+function getBuilds(organizationId, projectId) {
   return request({
     uri: apiUrl + '/organizations/' + organizationId + '/projects/' + projectId + '/builds',
     method: 'GET',
@@ -55,7 +53,7 @@ function accessTokenExpired() {
 }
 
 module.exports = {
-  postAuth,
-  listProjects,
-  listBuilds,
+  authenticate,
+  getProjects,
+  getBuilds,
 };
