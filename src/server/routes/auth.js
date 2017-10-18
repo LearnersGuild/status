@@ -8,7 +8,7 @@ async function list(req, res) {
   const orgId = authorization.organizations[0].uuid;
 
   // Get the organization's projects
-  let { projects } = (await apiClient.listProjects(orgId)).projects;
+  let projects = (await apiClient.listProjects(orgId)).projects;
 
   // Embed the latest builds into each project
   projects = await Promise.all(projects.map(async (project) => {
@@ -17,7 +17,7 @@ async function list(req, res) {
   }));
 
   // Render the list view with projects
-  res.render('list', { projects });
+  res.render('index', { projects });
 }
 
 module.exports = { list };

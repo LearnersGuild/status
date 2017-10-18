@@ -7,7 +7,14 @@ html {
   justify-content: center;
 }
 
+.projects-wrapper .project-grid {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
 .project {
+  justify-content: space-around;
   font-family: 'Yantramanav', sans-serif;
   margin: 30px;
   border: 1px outset silver;
