@@ -3,7 +3,6 @@ const request = require('request-promise');
 const { codeship } = require('../config');
 
 let authorization;
-console.log( '---===config===---', codeship.apiUrl )
 async function authenticate() {
   if (accessTokenExpired()) {
     authorization = await request({
@@ -22,7 +21,7 @@ async function authenticate() {
 
 function getProjects(organizationId) {
   return request({
-    uri: apiUrl + '/organizations/' + organizationId + '/projects',
+    uri: codeship.apiUrl + '/organizations/' + organizationId + '/projects',
     method: 'GET',
     json: true,
     headers: {
@@ -34,7 +33,7 @@ function getProjects(organizationId) {
 
 function getBuilds(organizationId, projectId) {
   return request({
-    uri: apiUrl + '/organizations/' + organizationId + '/projects/' + projectId + '/builds',
+    uri: codeship.apiUrl + '/organizations/' + organizationId + '/projects/' + projectId + '/builds',
     method: 'GET',
     json: true,
     headers: {

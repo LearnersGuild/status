@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { getProjects } = require('./dashboard');
 
-router.use('/dashboard', getProjects);
+router.use('/', getProjects);
 
 module.exports = router;
 

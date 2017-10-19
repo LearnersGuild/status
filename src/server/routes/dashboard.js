@@ -1,6 +1,11 @@
 const apiClient = require('../../gateway/codeship');
 
 async function getProjects(req, res) {
+  async function appendBuildsToProjects(project) {
+    project.builds = (await apiClient.getBuilds(orgId, project.uuid)).builds;
+    return project;
+  }
+
   // Authenticate the user
   const authorization = await apiClient.authenticate();
 
@@ -11,10 +16,7 @@ async function getProjects(req, res) {
   let projects = (await apiClient.getProjects(orgId)).projects;
 
   // Embed the latest builds into each project
-  projects = await Promise.all(projects.map(async (project) => {
-    project.builds = (await apiClient.getBuilds(orgId, project.uuid)).builds;
-    return project;
-  }));
+  projects = await Promise.all(projects.map(appendBuildsToProjects));
 
   // Render the getProjects view with projects
   res.render('index', { projects });
