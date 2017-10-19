@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const { getProjects } = require('./dashboard');
+const dashboard = require('./dashboard');
 
-router.use('/', getProjects);
+router.use('/', dashboard);
 
 module.exports = router;
 
